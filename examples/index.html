@@ -5,8 +5,17 @@
     <script src="../src/Lexibit.js"></script>
     <script>
         $(function () {
-            l = new Lexibit("../dictionaries/4-letter.js", "../dictionaries/common.dict");
+            l = new Lexibit("../dictionaries/4-letter.obj", "../dictionaries/common.dict");
+            setTimeout(run, 5000);
         });
+        function run() {
+            console.log("Started");
+            var t = new Date();
+            for (var i = 0; i < 100; i++) {
+                console.log(l.randomCommonWordPair());
+            }
+            console.log(((new Date() - t) / 1000) + " Seconds to complete");
+        }
     </script>
 </head>
 </html>
