@@ -1,5 +1,10 @@
 # Lexibit
 
+Author: Joseph Schultz - schultzjosephj@gmail.com
+
+Contributor: Erich Wu - erich@unconfusing.com
+
+Original structure idea from - [Tony D](https://stackoverflow.com/users/410767/tony-d), and  [Ike](https://stackoverflow.com/users/4842163/ike)
 
 ## Overview:
 
@@ -14,8 +19,6 @@ The solution has to find a way to produce a result that allows us to easily navi
 
 Create a list of words, separated by length. `3: {'cat', 'dog', 'man', 'can' ...}, 4: {'runt','bunt','hint','chin'}, 5: { ...` for each of these words create a sub list, for the sake of simplicity we will expand using the three letter words 'cat' and 'dog'.
 
-Diagram Below Explained:    Allocate a 32-bit integer, meaning, a binary number with 32 digits. The 32nd being the sign of the number. In programming, any `int` ( a normal number ) has a 32-bit representation. (`0 is 0000000000000000000000000000000000000` or `12 is 00000000000000000000000000001100`).
-
   **The goal is to take a wild card letter, and find all of the places where a word exists with the wildcard changed, and map it to a single bit of the 32-bit integer using the alphabet as the index. (a = 0th digit, b = 1st digit, c = 2nd digit, d = 3rd digit) and use a `0` to specify no word or a `1` to specify a word exists with the letter at that index.**
 
 
@@ -23,8 +26,8 @@ So the final data structure would look like this:
 
 ```
 {
-  'cat':{'_at':964774,'c_t':12345,'ca_':678910},
-  'dog':{'_og':12345,'d_g':678910,'do_':12345},
+  "cat":{"&at":7331062,"c&t":1064961,"ca&":21671946}
+  "dog":{"&og":4733614,"d&g":1065217,"do&":5126228}
    ....
 }
 ```
