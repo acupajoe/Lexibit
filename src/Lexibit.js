@@ -13,7 +13,7 @@
  * @dependency: trie.js by Mike de Boer <info AT mikedeboer DOT nl>
  * @author: Joseph Schultz - schultzjosephj@gmail.com
  * @modified: 12/2/2015
- * @version: 1.0.0
+ * @version: 1.0.1
  * @license MIT
  */
 var Lexibit = (function Lexibit(lexiconUrl, commonUrl) {
@@ -92,7 +92,7 @@ var Lexibit = (function Lexibit(lexiconUrl, commonUrl) {
 
     /**
      * Custom Exception Handling
-     * @type {{notReady: _Exception.notReady, noElements: _Exception.noElements, invalidFile: _Exception.invalidFile}}
+     * @type {{notReady: _Exception.notReady, noElements: _Exception.noElements, invalidFile: _Exception.invalidFile, invalidParameter: _Exception.invalidParameter}}
      * @private
      */
     var _Exception = {
@@ -118,6 +118,15 @@ var Lexibit = (function Lexibit(lexiconUrl, commonUrl) {
             throw {
                 name: "invalid-file",
                 message: "Invalid file. Be sure you have the correct url.",
+                toString: function () {
+                    return this.name + ": " + this.message;
+                }
+            };
+        },
+        invalidParameter: function (msg) {
+            throw {
+                name: "invalid-parameter",
+                message: "Parameters have not met the specifications. " + msg,
                 toString: function () {
                     return this.name + ": " + this.message;
                 }
@@ -200,8 +209,8 @@ var Lexibit = (function Lexibit(lexiconUrl, commonUrl) {
      * @param max
      * @returns {*}
      */
-    var getRandomInt = function (min, max) {
-        return Math.random() * (max - min) + min;
+    var _getRandomInt = function (min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     };
 
     /**
@@ -308,8 +317,19 @@ var Lexibit = (function Lexibit(lexiconUrl, commonUrl) {
             return this.ready;
         },
 
-        randomCommonWord: function () {
-
+        /**
+         * Finds a pair of words that have a known path between them.
+         * @returns {{one: *, two: *, path: boolean}}
+         */
+        randomCommonWordPair: function () {
+            var one, two;
+            var p = false;
+            while (!p) {
+                one = _common[_getRandomInt(0, _common.length)];
+                two = _common[_getRandomInt(0, _common.length)];
+                p = this.path(one, two);
+            }
+            return {one: one, two: two, path: p};
         },
 
         /**
@@ -321,6 +341,12 @@ var Lexibit = (function Lexibit(lexiconUrl, commonUrl) {
         path: function (start, end) {
             if (!this.ready) {
                 _Exception.notReady();
+            }
+            if (!start || !end) {
+                return false;
+            }
+            if (start.length != this.length || end.length != this.length) {
+                _Exception.invalidParameter("Words must be of length " + this.length);
             }
             var s = _lexicon[start];
             var e = _lexicon[end];
