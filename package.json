@@ -1,0 +1,36 @@
+{
+  "name": "lexibit.js",
+  "version": "1.0.0",
+  "description": "a Word Ladder Solution in javascript",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acupajoe/Lexibit.js.git"
+  },
+  "keywords": [
+    "word",
+    "ladder",
+    "lexicon",
+    "bfs",
+    "data",
+    "structure",
+    "bitwise",
+    "flip"
+  ],
+  "author": "Joseph Schultz : schultzjosephj@gmail.com, Erich Wu : erich@unconfusing.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/acupajoe/Lexibit.js/issues"
+  },
+  "homepage": "https://github.com/acupajoe/Lexibit.js#readme",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "qunit": "^0.7.7"
+  }
+}
