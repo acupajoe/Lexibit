@@ -72,7 +72,8 @@ function build() {
             var w = k.replaceAt(j, wildcard);
             object[k][w] = new Number();
             for (var l = 0; l < alphabet.length; l++) {
-                if (trie.find(w.replaceAt(j, alphabet[l]))) {
+                var nw = w.replaceAt(j, alphabet[l]);
+                if (nw != k && trie.find(nw)) {
                     pos = (alphabet[l].charCodeAt(0) - 'a'.charCodeAt(0));
                     object[k][w] = object[k][w] | (1 << pos);
                 }
